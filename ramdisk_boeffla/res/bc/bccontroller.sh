@@ -16,7 +16,7 @@ KERNEL_SPECS="i9305;cm;cm11.0;-"
 # kernel features 
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)
 # (5=enable-default-zram-control)
-KERNEL_FEATURES="-1-2-3-"
+KERNEL_FEATURES="-2-3-"
 
 # path to kernel libraries
 LIBPATH="/system/lib/modules"
@@ -1377,6 +1377,7 @@ if [ "action_debug_info_file" == "$1" ]; then
 fi
 
 if [ "action_reboot" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot
@@ -1384,6 +1385,7 @@ if [ "action_reboot" == "$1" ]; then
 fi
 
 if [ "action_reboot_cwm" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot recovery
@@ -1391,6 +1393,7 @@ if [ "action_reboot_cwm" == "$1" ]; then
 fi
 
 if [ "action_reboot_download" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot download
@@ -1398,6 +1401,7 @@ if [ "action_reboot_download" == "$1" ]; then
 fi
 
 if [ "action_wipe_caches_reboot" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox rm -rf /cache/*
 	busybox rm -rf /data/dalvik-cache/*
 	busybox sync
@@ -1450,13 +1454,13 @@ fi
 
 if [ "action_fstrim" == "$1" ]; then
 	echo -e "Trim /data"
-	/res/bc/fstrim -v /data
+	fstrim -v /data
 	echo -e ""
 	echo -e "Trim /cache"
-	/res/bc/fstrim -v /cache
+	fstrim -v /cache
 	echo -e ""
 	echo -e "Trim /system"
-	/res/bc/fstrim -v /system
+	fstrim -v /system
 	echo -e ""
 	busybox sync
 	exit 0
