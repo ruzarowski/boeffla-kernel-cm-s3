@@ -203,6 +203,8 @@ extern void midas_config_sleep_gpio_table(void);
 #define GPIO_VOL_DOWN			EXYNOS4_GPX3(3)
 #define GPIO_T_FLASH_DETECT		EXYNOS4_GPX3(4)
 #define GPIO_EAR_SEND_END		EXYNOS4_GPX3(6)
+#define GPIO_LINEOUT_EN                 EXYNOS4212_GPJ1(2)
+
 #define GPIO_HDMI_HPD			EXYNOS4_GPX3(7)
 
 #if !defined(CONFIG_MACH_M3_USA_TMO)
