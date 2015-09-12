@@ -2,6 +2,8 @@
 # this makefile is called from the kernel make system. Thus we basiclly
 # add things to "obj-m" here.
 
+GUD_ROOT_FOLDER := $(srctree)/drivers/gud20/
+
 ifeq ($(MODE),release)
     ccflags-y = -O2 -DNDEBUG
 else
@@ -14,7 +16,7 @@ ifdef MOBICORE_CFLAGS
 endif
 #EXTRA_CFLAGS+=-DDEBUG_VERBOSE
 
-ccflags-y += -include $(M)/build_tag.h -Wall -D__$(PLATFORM)__
+ccflags-y += -include $(GUD_ROOT_FOLDER)/build_tag.h -Wall -D__$(PLATFORM)__
 # add our module to kernel.
 obj-m += mcDrvModule.o
 
