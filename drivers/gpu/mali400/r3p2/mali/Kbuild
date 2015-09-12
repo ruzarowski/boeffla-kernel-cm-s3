@@ -32,10 +32,10 @@ ifeq ($(CONFIG_SOC_EXYNOS3470),y)
     TARGET_PLATFORM=exynos4270
 endif
 
-include $(src)/MALI_CONFIGURATION
+include $(srctree)/$(src)/MALI_CONFIGURATION
 MALI_PLATFORM = $(MALI_PLATFORM-$(TARGET_PLATFORM))
 EXTRA_DEFINES += -DMALI_FAKE_PLATFORM_DEVICE=1
-MALI_PLATFORM_FILES = $(subst $(src)/,,$(wildcard $(src)/platform/$(MALI_PLATFORM)/*.c))
+MALI_PLATFORM_FILES = $(subst $(srctree)/$(src)/,,$(wildcard $(srctree)/$(src)/platform/$(MALI_PLATFORM)/*.c))
 # End of MALI_SEC
 
 # For customer releases the Linux Device Drivers will be provided as ARM proprietary and GPL releases:
@@ -195,7 +195,7 @@ endif
 ccflags-y += -DSVN_REV_STRING=\"$(DRIVER_REV)\"
 
 VERSION_STRINGS :=
-VERSION_STRINGS += API_VERSION=$(shell cd $(src); grep "\#define _MALI_API_VERSION" $(FILES_PREFIX)include/linux/mali/mali_utgard_uk_types.h | cut -d' ' -f 3 )
+VERSION_STRINGS += API_VERSION=$(shell cd $(srctree)/$(src); grep "\#define _MALI_API_VERSION" $(FILES_PREFIX)include/linux/mali/mali_utgard_uk_types.h | cut -d' ' -f 3 )
 VERSION_STRINGS += REPO_URL=$(REPO_URL)
 VERSION_STRINGS += REVISION=$(DRIVER_REV)
 VERSION_STRINGS += CHANGED_REVISION=$(CHANGED_REVISION)
